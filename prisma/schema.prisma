@@ -12,10 +12,11 @@ datasource db {
 model Card {
   id            String    @id     // Scryfall UUID
   name          String
+  imageUri      String?
   setName       String
   setCode       String            // set code e.g. "SOS"
   collectorNum  String
-  manaCost      String            // displayed mana cost 2{w}{r]}
+  manaCost      String?           // displayed mana cost 2{w}{r]}
   cmc           Float             // converted mana cost 4 (queryable)            
   power         String?
   toughness     String?
