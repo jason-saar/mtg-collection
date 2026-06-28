@@ -2,6 +2,7 @@
 // https://github.com/ChiriVulpes/scryfall-sdk/blob/main/DOCUMENTATION.md
 import { type NextRequest, NextResponse } from 'next/server'
 import * as Scry from "scryfall-sdk"
+import { mapCard } from "@/lib/mapCard"
 
 // Scryfall requires all applications provide an agent
 Scry.setAgent("mtg-collector", "0.1.0");
@@ -18,7 +19,8 @@ export async function GET(request: NextRequest) {
     }
     try {
         const cards = await Scry.Cards.search(query).waitForAll()
-        return NextResponse.json(cards)
+        // return map using scryfall cardmapping
+        return NextResponse.json(cards.map(mapCard))
     } catch (err) {
         return NextResponse.json(
             { error: "No cards found" },
