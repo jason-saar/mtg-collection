@@ -8,7 +8,7 @@ export function mapCard(card: ScryfallCard) {
         name: card.name,
         // Double-faced cards store image_uris on card_faces[]
         // TODO: implement double-faced card integration
-        imageUri: card.image_uris?.normal ?? card.card_faces?.[0].image_uris?.normal ?? null,
+        imageUri: card.image_uris?.normal ?? card.card_faces?.[0]?.image_uris?.normal ?? null,
         setName: card.set_name,
         setCode: card.set,
         collectorNum: card.collector_number,
@@ -25,3 +25,7 @@ export function mapCard(card: ScryfallCard) {
         keywords: JSON.stringify(card.keywords)
     }
 }
+
+// Infer mapCard return type
+// https://www.typescriptlang.org/docs/handbook/utility-types.html#returntypetype
+export type MappedCard = ReturnType<typeof mapCard>
