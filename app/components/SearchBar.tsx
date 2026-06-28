@@ -15,7 +15,7 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
         e.preventDefault()          // Prevent reload on submit
         if (!query) return          // do nothing if query is empty
         
-        const res = await fetch(`/ap/cards/search?q=${encodeURIComponent(query)}`)
+        const res = await fetch(`/api/cards/search?q=${encodeURIComponent(query)}`)
         const cards = await res.json()
         onSearch(cards)
     }
