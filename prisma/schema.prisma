@@ -12,7 +12,7 @@ datasource db {
 model Card {
   id            String    @id     // Scryfall UUID
   name          String
-  imageUri      String?
+  imageUri      String?           // TODO: implement double-faced card handling, front/back imageuris
   setName       String
   setCode       String            // set code e.g. "SOS"
   collectorNum  String
