@@ -1,11 +1,14 @@
+"use client"
+
 import { useState } from "react"
 import { MappedCard } from "@/lib/mapCard"
+import SearchBar from "./components/SearchBar"
 
 export default function Home() {
-  const [query, setQuery] = useState("");
   const [cards, setCards] = useState<MappedCard[]>([])
   return (
-    <>
-    </>
+    <main>
+      <SearchBar onSearch={setCards} />
+    </main>
   )   
 }
