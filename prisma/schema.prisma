@@ -1,13 +1,37 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Prisma Docs used as reference: https://www.prisma.io/docs/orm/prisma-schema/overview
 
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
+}
+
+// https://scryfall.com/docs/api/cards
+model Card {
+  id            String    @id     // Scryfall UUID
+  name          String
+  setName       String
+  setCode       String            // set code e.g. "SOS"
+  collectorNum  String
+  manaCost      String            // displayed mana cost 2{w}{r]}
+  cmc           Float             // converted mana cost 4 (queryable)            
+  power         String?
+  toughness     String?
+  colors        String?
+  colorIdentity String
+  typeLine      String
+  rarity        String
+  prices        String
+  keywords      String
+
+  collection CollectionEntry[]
+}
+
+model CollectionEntry {
+  id            Int       @id @default(autoincrement())
+  card          Card      @relation(fields: [cardId], references: [id])
+  cardId        String
+  quantity      Int       @default(1)
 }
