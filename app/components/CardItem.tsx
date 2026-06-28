@@ -12,7 +12,7 @@ export default function CardItem({ card }: CardItemProps){
     return (
         <div>
             {card.imageUri && (
-                <img src={card.imageUri} alt={card.name} />
+                <img src={card.imageUri} alt={card.name} style={{ borderRadius: "4.75% / 3.5%" }} />
             )}
         </div>
     )
