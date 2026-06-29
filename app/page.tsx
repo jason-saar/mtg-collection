@@ -1,15 +1,34 @@
+// https://nextjs.org/docs/app/api-reference/functions/use-search-params
+// https://nextjs.org/docs/app/api-reference/functions/use-router
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MappedCard } from "@/lib/mapCard"
-import SearchBar from "./components/SearchBar"
 import CardGrid from "./components/CardGrid"
+import { useSearchParams } from "next/navigation"
 
 export default function Home() {
   const [cards, setCards] = useState<MappedCard[]>([])
+  /*
+   * useSearchParams reads the query from the URL set by Navbar's SearchBar
+   * Navbar lives in layout.tsx and cannot pass state directly to this page
+   */
+  const searchParams = useSearchParams()
+  const query = searchParams.get('q') ?? ""     // null coalesce query for encodeURIComponent
+  
+  useEffect(() => {
+    if (!query) return    // do nothing is query is empty
+    
+    async function fetchCards() {
+      const res = await fetch(`/api/cards/search?q=${encodeURIComponent(query)}`)
+      const data = await res.json()
+      setCards(data)
+    }
+    fetchCards()
+  }, [query])
+
   return (
-    <main>
-      <SearchBar onSearch={setCards} />
+    <main className="px-8 py-6">
       <CardGrid cards={cards} />
     </main>
   )   
