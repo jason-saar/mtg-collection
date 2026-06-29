@@ -1,4 +1,5 @@
-import * as Scry from 'scryfall-sdk'
+import Scry from '@/lib/scryfall'
+
 
 // dynamic route is passed automatically by Next.js from the URL
 export default async function CardPage({
@@ -7,6 +8,7 @@ export default async function CardPage({
     params: Promise<{ id: string }>
 }) {
     const { id } = await params
+    Scry.setAgent("mtg-collector", "0.1.0");
     const card = await Scry.Cards.byId(id)
     
     return (

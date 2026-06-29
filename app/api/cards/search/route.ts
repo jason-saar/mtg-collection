@@ -1,11 +1,8 @@
 // https://nextjs.org/docs/app/api-reference/file-conventions/route#url-query-parameters
 // https://github.com/ChiriVulpes/scryfall-sdk/blob/main/DOCUMENTATION.md
 import { type NextRequest, NextResponse } from 'next/server'
-import * as Scry from "scryfall-sdk"
+import Scry from "@/lib/scryfall"
 import { mapCard } from "@/lib/mapCard"
-
-// Scryfall requires all applications provide an agent
-Scry.setAgent("mtg-collector", "0.1.0");
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
