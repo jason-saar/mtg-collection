@@ -28,7 +28,7 @@ export default function Home() {
   }, [query])
 
   return (
-    <main className="px-8 py-6">
+    <main>
       <CardGrid cards={cards} />
     </main>
   )   

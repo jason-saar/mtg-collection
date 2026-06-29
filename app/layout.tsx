@@ -32,7 +32,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Navbar />
-        <div className="pt-14">
+        <div className="px-8 py-20 pb-4">
           {children}
         </div>
       </body>
