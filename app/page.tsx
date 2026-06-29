@@ -17,7 +17,10 @@ export default function Home() {
   const query = searchParams.get('q') ?? ""     // null coalesce query for encodeURIComponent
   
   useEffect(() => {
-    if (!query) return    // do nothing is query is empty
+    if (!query) {
+      setCards([])    // clear cards when query is empty
+      return
+    }
     
     async function fetchCards() {
       const res = await fetch(`/api/cards/search?q=${encodeURIComponent(query)}`)
