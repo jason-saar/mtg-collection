@@ -18,7 +18,10 @@ export async function GET(request: NextRequest) {
         )
     }
     try {
-        const cards = await Scry.Cards.search(query).waitForAll()
+        // Limit to first page (175) to prevent long response times
+        // TODO: implement pagination to allow browsing beyond first page
+        // e.g. ?q=lightning+bolt&page=1, ?q=lightning+bolt&page=2
+        const cards = await Scry.Cards.search(query, { page: 1 }).waitForAll()
         // return map using scryfall cardmapping
         return NextResponse.json(cards.map(mapCard))
     } catch (err) {
