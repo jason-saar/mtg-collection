@@ -2,7 +2,11 @@
 type PrintInfo = {
     id: string
     set_name: string
-    prices: { usd?: string | null}
+    prices: {
+        usd?: string | null
+        usd_foil?: string | null
+        usd_etched?: string | null
+    }
     image_uris?: { small: string } | null
 }
 
@@ -23,7 +27,16 @@ export default function CardTable({ cards }: CardTableProps) {
                 {cards.map(({ id, set_name, prices}) => ( 
                   <tr key={id}>
                     <td>{set_name}</td>
-                    <td>{prices.usd ? `$${prices.usd}` : '-'}</td>
+                    <td>
+                        {/* fall back through price tiers: regular->foil->etched->none */}
+                        {prices.usd 
+                            ? `$${prices.usd}`
+                            : prices.usd_foil
+                            ? `F $${prices.usd_foil}`
+                            : prices.usd_etched
+                            ? `F $${prices.usd_etched}`
+                            : '-'
+                        }</td>
                   </tr>  
                 ))}
             </tbody>
