@@ -2,6 +2,7 @@
 
 "use client"
 
+// TODO: decouple MappedCard and CardGrid? only need id and imageUri
 import type { MappedCard } from "@/lib/mapCard"
 import CardItem from "./CardItem"
 

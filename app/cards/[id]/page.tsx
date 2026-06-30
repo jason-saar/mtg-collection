@@ -1,4 +1,5 @@
 import Scry from '@/lib/scryfall'
+import CardTable from '@/app/components/CardTable';
 
 
 // dynamic route is passed automatically by Next.js from the URL
@@ -8,12 +9,8 @@ export default async function CardPage({
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
-  Scry.setAgent("mtg-collector", "0.1.0");
   const card = await Scry.Cards.byId(id)
-
-  const printsResponse = await fetch(card.prints_search_uri)
-  // destructure response JSON's data field into prints
-  const { data: prints } = await printsResponse.json();
+  const prints = await card.getPrints();
 
   return (
     <div className="flex gap-8 items-start justify-center max-w-4xl mx-auto">
@@ -27,8 +24,9 @@ export default async function CardPage({
         <p>{card.oracle_text}</p>
         <p className="italic">{card.flavor_text}</p>
         <p>Illustrated by {card.artist}</p>
-        <p>${card.prices.usd}</p>
+        <p>{card.prices.usd ? `${card.prices.usd}` : ''}</p>
         {/* TODO: Add reprint list */}
+        <CardTable cards={prints} />
       </div>
     </div>
     )
