@@ -10,6 +10,7 @@ export default async function CardPage({
 }) {
   const { id } = await params
   const card = await Scry.Cards.byId(id)
+  
   const prints = await card.getPrints()
 
   // sort by release date, newest first
@@ -31,7 +32,7 @@ export default async function CardPage({
           <p>{card.oracle_text}</p>
           <p className="italic">{card.flavor_text}</p>
           <p>Illustrated by {card.artist}</p>
-          <p>{card.prices.usd ? `${card.prices.usd}` : ''}</p>
+          <p>{card.prices.usd ? `$${card.prices.usd}` : ''}</p>
         </div>
       </div>
       <div className="flex justify-center pt-6">
