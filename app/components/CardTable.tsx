@@ -7,7 +7,7 @@ type PrintInfo = {
         usd_foil?: string | null
         usd_etched?: string | null
     }
-    image_uris?: { small: string } | null
+    image_uris?: { normal: string } | null
 }
 
 interface CardTableProps {
@@ -24,9 +24,19 @@ export default function CardTable({ cards }: CardTableProps) {
                 </tr>
             </thead>
             <tbody>
-                {cards.map(({ id, set_name, prices}) => ( 
-                  <tr key={id}>
-                    <td>{set_name}</td>
+                {cards.map(({ id, set_name, prices, image_uris }) => ( 
+                  <tr key={id} className="group relative">
+                    <td className="px-2 py-1 relative">
+                        {set_name}
+                        {image_uris && (
+                            <img 
+                                src={image_uris.normal}
+                                alt={set_name}
+                                className="hidden group-hover:block absolute right-full bottom-0"
+                                style={{ borderRadius: "4.75% / 3.5%" }}
+                            />
+                        )}
+                    </td>
                     <td>
                         {/* fall back through price tiers: regular->foil->etched->none */}
                         {prices.usd 

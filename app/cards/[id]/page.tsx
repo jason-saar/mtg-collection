@@ -36,7 +36,6 @@ export default async function CardPage({
       </div>
       <div className="flex justify-center pt-6">
         <CardTable cards={visiblePrints} />
-        
       </div>
     </>
     )
