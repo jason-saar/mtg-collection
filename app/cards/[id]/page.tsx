@@ -10,7 +10,11 @@ export default async function CardPage({
   const { id } = await params
   Scry.setAgent("mtg-collector", "0.1.0");
   const card = await Scry.Cards.byId(id)
-    
+
+  const printsResponse = await fetch(card.prints_search_uri)
+  // destructure response JSON's data field into prints
+  const { data: prints } = await printsResponse.json();
+
   return (
     <div className="flex gap-8 items-start justify-center max-w-4xl mx-auto">
       <div className="w-80">
