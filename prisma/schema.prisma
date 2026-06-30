@@ -26,10 +26,14 @@ model Card {
   rarity        String
   prices        String
   keywords      String
+  legalities    String            // legal/not_legal/restricted/banned in game formats
+  finishes      String            // nonfoil/foil
 
   collection CollectionEntry[]
 }
 
+
+// TODO: fully flesh out attributes
 model CollectionEntry {
   id            Int       @id @default(autoincrement())
   card          Card      @relation(fields: [cardId], references: [id])

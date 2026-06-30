@@ -16,11 +16,13 @@ export function mapCard(card: ScryfallCard) {
         cmc: card.cmc,
         power: card.power ?? null,
         toughness: card.toughness ?? null,
+        typeLine: card.type_line,
+        rarity: card.rarity,
         // Arrays/objects serialized to JSON strings for SQLite compatability
         colors: card.colors ? JSON.stringify(card.colors) : null,
         colorIdentity: JSON.stringify(card.color_identity),
-        typeLine: card.type_line,
-        rarity: card.rarity,
+        legalities: JSON.stringify(card.legalities),
+        finishes: JSON.stringify(card.finishes),
         prices: JSON.stringify(card.prices),
         keywords: JSON.stringify(card.keywords)
     }
