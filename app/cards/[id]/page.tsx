@@ -1,6 +1,6 @@
 import Scry from '@/lib/scryfall'
 import CardTable from '@/app/components/CardTable';
-
+import ManaCost from '@/app/components/ManaCost';
 
 // dynamic route is passed automatically by Next.js from the URL
 export default async function CardPage({
@@ -11,6 +11,7 @@ export default async function CardPage({
   const { id } = await params
   const card = await Scry.Cards.byId(id)
   
+  // TODO: cap fetch size using card.search()
   const prints = await card.getPrints()
 
   // sort by release date, newest first
@@ -18,6 +19,7 @@ export default async function CardPage({
     new Date(b.released_at).getTime() - new Date(a.released_at).getTime()
   )
   const visiblePrints = sortedPrints.slice(0, 10)
+  console.log(card.mana_cost)
 
   return (
     <>
@@ -26,8 +28,8 @@ export default async function CardPage({
           <img src={card.image_uris?.normal} alt={card.name} style={{ borderRadius: "4.75% / 3.5%" }} className="w-75 h-105" />
         </div>
         <div className="flex-1">
-          <h1>{card.name} {card.mana_cost}</h1>
-          {/* TODO: Manacost mapper for SVG */}
+          {/* card.mana_cost can be string | null | undefined, if not string we fallback to '' for easier handling*/}
+          <h1 className="flex gap-2 items-center">{card.name} <ManaCost cost={card.mana_cost ?? ''}/></h1>
           <p>{card.type_line}</p>
           <p>{card.oracle_text}</p>
           <p className="italic">{card.flavor_text}</p>
