@@ -28,6 +28,32 @@ export function mapCard(card: ScryfallCard) {
     }
 }
 
-// Infer mapCard return type
+// Maps ScryfallCard for client component props
+export function mapCardDetails(card: ScryfallCard){
+    return {
+        name: card.name,
+        mana_cost: card.mana_cost,
+        type_line: card.type_line,
+        oracle_text: card.oracle_text,
+        flavor_text: card.flavor_text,
+        power: card.power,
+        toughness: card.toughness,
+        artist: card.artist,
+        image_uris: card.image_uris,
+        card_faces: card.card_faces?.map(face => ({
+            name: face.name,
+            mana_cost: face.mana_cost,
+            type_line: face.type_line,
+            oracle_text: face.oracle_text,
+            flavor_text: face.flavor_text,
+            power: face.power,
+            toughness: face.toughness,
+            artist: face.artist,
+            image_uris: face.image_uris
+        }))
+    }
+}
+
 // https://www.typescriptlang.org/docs/handbook/utility-types.html#returntypetype
 export type MappedCard = ReturnType<typeof mapCard>
+export type MappedCardDetails = ReturnType<typeof mapCardDetails>
