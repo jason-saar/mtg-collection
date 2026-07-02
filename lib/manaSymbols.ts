@@ -1,14 +1,14 @@
 // https://scryfall.com/docs/api/card-symbols/all
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
 
-// parse all symbols within card.mana_cost (e.g. {2}{R}{W}{B}
+// parse all symbols within card.mana_cost (e.g. "{2}{R}{G/W}" -> ["{2}", "{R}", "{G/W}"])
 export function parseMana(manaCost: string) : string[] {
     const regex = /\{[^}]+\}/g
     const matches = manaCost.match(regex)
     return matches ?? []
 }
 
-// remove {} and all / in symbol name (e.g. B/G/P-> BGP)
+// remove {} and all / in symbol name (e.g. "{G/W}" -> "GW")
 export function stripSymbol(symbol: string) : string {
     const regex = /[{}\/]/g
     return symbol.replace(regex, '')
