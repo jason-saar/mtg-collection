@@ -19,7 +19,6 @@ export default async function CardPage({
     new Date(b.released_at).getTime() - new Date(a.released_at).getTime()
   )
   const visiblePrints = sortedPrints.slice(0, 10)
-  console.log(card.mana_cost)
 
   return (
     <>
@@ -31,7 +30,8 @@ export default async function CardPage({
           {/* card.mana_cost can be string | null | undefined, if not string we fallback to '' for easier handling*/}
           <h1 className="flex gap-2 items-center">{card.name} <ManaCost cost={card.mana_cost ?? ''}/></h1>
           <p>{card.type_line}</p>
-          <p>{card.oracle_text}</p>
+          {/* respect /n in oracle_text strings */}
+          <p className="whitespace-pre-wrap">{card.oracle_text}</p>
           <p className="italic">{card.flavor_text}</p>
           <p>Illustrated by {card.artist}</p>
           <p>{card.prices.usd ? `$${card.prices.usd}` : ''}</p>
