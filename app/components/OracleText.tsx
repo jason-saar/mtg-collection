@@ -14,7 +14,7 @@ export default function OracleText( { oracleText }: { oracleText : string }) {
                                 key={i}
                                 src={symbolToUrl(token.value)}
                                 alt={token.value}
-                                className="w-4 h-4 inline relative top-[-2px]"
+                                className="w-4 h-4 inline relative -top-0.5"
                             />
                 }
                 // hint can contain symbols, run an inner parse
