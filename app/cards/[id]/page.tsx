@@ -1,7 +1,7 @@
 import Scry from '@/lib/scryfall'
+import DisplayFace from '@/app/components/DisplayFace';
 import CardTable from '@/app/components/CardTable';
-import ManaCost from '@/app/components/ManaCost';
-import OracleText from '@/app/components/OracleText';
+
 
 // dynamic route is passed automatically by Next.js from the URL
 export default async function CardPage({
@@ -23,23 +23,22 @@ export default async function CardPage({
 
   return (
     <>
-      <div className="flex gap-8 items-start justify-center max-w-4xl mx-auto">
-        <div className="w-80">
-          <img src={card.image_uris?.normal} alt={card.name} style={{ borderRadius: "4.75% / 3.5%" }} className="w-75 h-105" />
-        </div>
-        <div className="flex-1">
-          {/* card.mana_cost can be string | null | undefined, if not string we fallback to '' for easier handling*/}
-          <h1 className="flex gap-2 items-center">{card.name} <ManaCost cost={card.mana_cost ?? ''}/></h1>
-          <p>{card.type_line}</p>
-          <OracleText oracleText={card.oracle_text ?? ""} />
-          <p className="italic">{card.flavor_text}</p>
-          <p>Illustrated by {card.artist}</p>
-          <p>{card.prices.usd ? `$${card.prices.usd}` : ''}</p>
-        </div>
+      <div>
+        {/* Detect multi-face cards vs single-faced 
+          * TODO: Implement click & flip image  
+        */}
+        {card.card_faces && card.card_faces.length > 1 ? (
+          <div>
+            <DisplayFace face={card.card_faces[0]} />
+            <DisplayFace face={card.card_faces[1]} />
+          </div>
+        ) : (
+          <DisplayFace face={card} />
+        )}
       </div>
       <div className="flex justify-center pt-6">
         <CardTable cards={visiblePrints} />
       </div>
     </>
-    )
+  )
 }
