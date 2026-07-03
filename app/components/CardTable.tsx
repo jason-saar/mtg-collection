@@ -5,6 +5,7 @@ import Link from "next/link"
 type PrintInfo = {
   id: string
   set_name: string
+  collector_number: string
   prices: {
     usd?: string | null
     usd_foil?: string | null
@@ -21,6 +22,18 @@ interface CardTableProps {
 }
 
 export default function CardTable({ cards }: CardTableProps) {
+  /*
+   * Prints can appear in a set > 1 time, so it's useful to display
+   * collector_number when that is the case. (e.g. MOM #203, MOM #204)
+   *    reduce() transforms cards into an object of Records where
+   *    key="set_name" value=count
+   */
+  const cardCount = cards.reduce((acc, card) => {
+    // if record exists inc by 1, otherwise set to 1
+    acc[card.set_name] = (acc[card.set_name] || 0) + 1
+    return acc
+  }, {} as Record<string, number>)
+
   return(
     <table className="bg-white min-w-125 rounded shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
       <thead>
@@ -30,12 +43,16 @@ export default function CardTable({ cards }: CardTableProps) {
         </tr>
       </thead>
       <tbody>
-        {cards.map(({ id, set_name, prices, image_uris, card_faces }) => {
+        {cards.map(({ id, set_name, collector_number, prices, image_uris, card_faces }) => {
           const imagePreview = image_uris?.normal ?? card_faces?.[0].image_uris?.normal
           return (
             <tr key={id} className="group relative">
               <td className="px-2 py-1 relative">   
-                <Link href={`/cards/${id}`}>{set_name}</Link>         
+                <Link href={`/cards/${id}`}>
+                  {set_name}
+                  {/* display collector_number if > 1 prints in set */}
+                  {cardCount[set_name] > 1 && ` #${collector_number}`}
+                </Link>         
                 {imagePreview && (
                   <img 
                     src={imagePreview}
