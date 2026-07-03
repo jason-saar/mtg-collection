@@ -25,9 +25,6 @@ export default async function CardPage({
   return (
     <>
       <div>
-        {/* Detect multi-face cards vs single-faced 
-          * TODO: Implement click & flip image  
-        */}
         <DisplayCard card={cardData} />
         <div className="flex justify-center pt-6">
           <CardTable cards={visiblePrints} />

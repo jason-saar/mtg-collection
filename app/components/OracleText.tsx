@@ -22,19 +22,24 @@ export default function OracleText( { oracleText }: { oracleText : string }) {
                     // strip "(" and ")" before parsing 
                     const inner = token.value.slice(1, -1)
                     const innerTokens = parseOracleText(inner)
-                    return <em key={i}>({innerTokens.map((innerToken, j) => {
+                    return ( 
+                        <em key={i}>({innerTokens.map((innerToken, j) => {
                         if (innerToken.type === "symbol") {
                             return <img
                                 key={j}
                                 src={symbolToUrl(innerToken.value)}
                                 alt={innerToken.value}
-                                className="w-4 h-4 inline relative top-[-1px]"
+                                className="w-4 h-4 inline relative -top-px"
                             />
                         }
                         return <span key={j}>{innerToken.value}</span> 
-                    })})</em>
+                        })})
+                        </em>
+                    )
                 }
-                return <span key={i}>{token.value}</span>
+                return (
+                    <span key={i} >{token.value}</span>
+                )
             })}
         </p>
     )
