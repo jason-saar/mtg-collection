@@ -11,8 +11,9 @@ export default async function CardPage({
 }) {
   const { id } = await params
   const card = await Scry.Cards.byId(id)
-  const cardData = mapCardDetails(card)
-
+  const set = await Scry.Sets.byCode(card.set)
+  const cardData = mapCardDetails(card, set.icon_svg_uri)
+  console.log(cardData.finishes)
 
   // TODO: cap fetch size using card.search()
   const prints = await card.getPrints()
@@ -27,7 +28,7 @@ export default async function CardPage({
       <div>
         <DisplayCard card={cardData} />
         <div className="flex justify-center pt-6">
-          <CardTable cards={visiblePrints} />
+          <CardTable cards={visiblePrints} currentCard={cardData}/>
         </div>
       </div>
     </>

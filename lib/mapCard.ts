@@ -29,9 +29,16 @@ export function mapCard(card: ScryfallCard) {
 }
 
 // Maps ScryfallCard for client component props
-export function mapCardDetails(card: ScryfallCard){
+export function mapCardDetails(card: ScryfallCard, iconSvgUri?: string){
     return {
+        id: card.id,
         name: card.name,
+        set: card.set,
+        set_name: card.set_name,
+        icon_svg_uri: iconSvgUri,
+        collector_number: card.collector_number,
+        rarity: card.rarity,
+        finishes: card.finishes,
         mana_cost: card.mana_cost,
         type_line: card.type_line,
         oracle_text: card.oracle_text,
