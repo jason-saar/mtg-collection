@@ -20,7 +20,7 @@ export default function DisplayCard({ card }: { card: MappedCardDetails }) {
                     <button onClick={() => setFaceIndex(faceIndex ? 0 : 1)}>Flip</button>
                 )}
             </div>
-            <div className="flex-1 border border-black/25 rounded bg-white max-w-125 pb-2 pt-1 px-2 shadow-[1px_1px_8px_rgba(0,0,0,0.5)]">
+            <div className="flex-1 rounded bg-white max-w-125 pb-2 pt-1 px-2 shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
                 {faces.map((face, i) => (                    
                     <div key={i}>
                         <div className="flex gap-2 items-center py-2">

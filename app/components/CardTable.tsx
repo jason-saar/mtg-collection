@@ -22,11 +22,11 @@ interface CardTableProps {
 
 export default function CardTable({ cards }: CardTableProps) {
   return(
-    <table>
+    <table className="bg-white min-w-125 rounded shadow-[0_4px_12px_rgba(0,0,0,0.15)]">
       <thead>
-        <tr>
-          <th>Prints</th>
-          <th>USD</th>
+        <tr className="bg-[#2B253A] rounded text-white">
+          <th className="bg-[#2B253A] rounded-tl text-left pl-2.5">Prints</th>
+          <th className="bg-[#2B253A] rounded-tr text-right pr-2">USD</th>
         </tr>
       </thead>
       <tbody>
@@ -51,9 +51,9 @@ export default function CardTable({ cards }: CardTableProps) {
                 {prices.usd 
                   ? `$${prices.usd}`
                   : prices.usd_foil
-                  ? `F $${prices.usd_foil}`
+                  ? `✶ $${prices.usd_foil}`
                   : prices.usd_etched
-                  ? `E $${prices.usd_etched}`
+                  ? `✶ $${prices.usd_etched}`
                   : '-'
                 }
               </td>

@@ -16,15 +16,15 @@ export default function Navbar() {
   }
 
   return(
-    <nav className="fixed w-full z-20 top-0 start-0 border-b border-default bg-white">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link href="/" className="self-center text-xl text-heading font-semibold whitespace-nowrap">
+    <nav className="fixed w-full z-20 top-0 inset-s-0 border-b border-default bg-[#2B253A]">
+      <div className="max-w-7xl flex flex-wrap items-center justify-between mx-auto py-2 px-4">
+        <Link href="/" className="self-center text-2xl text-heading font-semibold whitespace-nowrap text-white">
           MTG-Collector
         </Link>
-        <div className="flex items-center md:order-2">
+        <div className="flex items-center">
           <form onSubmit={searchHandler} className="relative">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg className="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <div className="absolute inset-y-0 inset-s-0 flex items-center ps-3">
+              <svg className="w-4 h-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"/>
               </svg>
             </div>
@@ -33,7 +33,7 @@ export default function Navbar() {
               value={query}
               placeholder="Search cards..."
               onChange={(e) => setQuery(e.target.value)}
-              className="block ps-9 pe-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500"
+              className="block ps-9 pe-3 py-2 text-sm text-white outline-none"
             />
           </form>
         </div>
