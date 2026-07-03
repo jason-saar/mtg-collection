@@ -40,7 +40,7 @@ export default function CardTable({ cards }: CardTableProps) {
                   <img 
                     src={imagePreview}
                     alt={set_name}
-                    className="hidden group-hover:block absolute right-full bottom-0"
+                    className="hidden group-hover:block absolute right-full bottom-0 w-48"
                     style={{ borderRadius: "4.75% / 3.5%" }}
                   />
                 )}
