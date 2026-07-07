@@ -1,8 +1,8 @@
-import type { MappedCard } from "@/lib/mapCard"
+import type { MappedCardDetails } from "@/lib/mapCard"
 import Link from "next/link"
 
 interface CardItemProps {
-    card: MappedCard
+    card: MappedCardDetails
 }
 
 export default function CardItem({ card }: CardItemProps){
@@ -10,8 +10,8 @@ export default function CardItem({ card }: CardItemProps){
     
     return (
         <Link href={`/cards/${card.id}`}>
-            {card.imageUri && (
-                <img src={card.imageUri} alt={card.name} style={{ borderRadius: "4.75% / 3.5%" }} />
+            {card.image_uris?.normal && (
+                <img src={card.image_uris.normal} alt={card.name} style={{ borderRadius: "4.75% / 3.5%" }} />
             )}
         </Link>
     )
