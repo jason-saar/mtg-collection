@@ -3,12 +3,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { MappedCard } from "@/lib/mapCard"
+import { MappedCardDetails } from "@/lib/mapCard"
 import CardGrid from "../components/CardGrid"
 import { useSearchParams } from "next/navigation"
 
 export default function Search() {
-  const [cards, setCards] = useState<MappedCard[]>([])
+  const [cards, setCards] = useState<MappedCardDetails[]>([])
   /*
    * useSearchParams reads the query from the URL set by Navbar's SearchBar
    * Navbar lives in layout.tsx and cannot pass state directly to this page

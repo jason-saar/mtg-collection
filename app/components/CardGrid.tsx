@@ -3,11 +3,11 @@
 "use client"
 
 // TODO: decouple MappedCard and CardGrid? only need id and imageUri
-import type { MappedCard } from "@/lib/mapCard"
+import type { MappedCardDetails } from "@/lib/mapCard"
 import CardItem from "./CardItem"
 
 interface CardGridProps {
-    cards: MappedCard[]
+    cards: MappedCardDetails[]
 }
 
 export default function CardGrid({ cards }: CardGridProps) {
