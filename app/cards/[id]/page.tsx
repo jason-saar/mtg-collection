@@ -15,20 +15,34 @@ export default async function CardPage({
   const cardData = mapCardDetails(card, set.icon_svg_uri)
   console.log(cardData.finishes)
 
-  // TODO: cap fetch size using card.search()
-  const prints = await card.getPrints()
-  // sort by release date, newest first
-  const sortedPrints = prints.sort((a, b) =>
-    new Date(b.released_at).getTime() - new Date(a.released_at).getTime()
-  )
-  const visiblePrints = sortedPrints.slice(0, 10)
+  /*
+   * Scryfall-sdk MagicEmitter object includes listeners 
+   */
+  console.time('getPrints')
+  const getPrints = await new Promise<Scry.Card[]>((resolve) => {
+    const res: Scry.Card[] = []
+    const emitter = Scry.Cards.search(
+      `oracleid:${card.oracle_id}`,
+      { unique: 'prints', order: 'released' }
+    )
+    emitter.on('data', (c) => {
+      res.push(c)
+      if (res.length >= 10) {
+        emitter.cancel()                      // cancel search at 10 reprints
+        resolve(res)
+      }
+    })
+    emitter.on('end', () => resolve(res))     // all results fetched, < 10 prints exist
+    emitter.on('error', () => resolve(res))   // resolve on error 
+  })
+  console.timeEnd('getPrints')
 
   return (
     <>
       <div>
         <DisplayCard card={cardData} />
         <div className="flex justify-center pt-6">
-          <CardTable cards={visiblePrints} currentCard={cardData}/>
+          <CardTable cards={getPrints} currentCard={cardData}/>
         </div>
       </div>
     </>
