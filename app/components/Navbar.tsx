@@ -12,7 +12,7 @@ export default function Navbar() {
   function searchHandler(e: React.SubmitEvent) {
     e.preventDefault()
     if(!query) return
-    router.push(`/?q=${encodeURIComponent(query)}`)
+    router.push(`/search?q=${encodeURIComponent(query)}`)
   }
 
   return(
