@@ -40,7 +40,7 @@ export default async function CardPage({
 
   return (
     <>
-      <div>
+      <div className="pt-20">
         <DisplayCard card={cardData} />
         <div className="flex justify-center pt-6">
           <CardTable cards={prints} currentCard={cardData}/>

@@ -31,7 +31,7 @@ export default function Search() {
   }, [query])
 
   return (
-    <main>
+    <main className="pt-20">
       <CardGrid cards={cards} />
     </main>
   )   

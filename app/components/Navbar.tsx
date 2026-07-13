@@ -2,12 +2,16 @@
  "use client"
 
  import { useState } from "react"
- import { useRouter } from "next/navigation"
+ import { usePathname, useRouter } from "next/navigation"
  import Link from "next/link"
 
 export default function Navbar() {
   const [query, setQuery] = useState("")
   const router = useRouter()
+  const pathname = usePathname()
+
+  // Skip rendering on homepage
+  if (pathname === "/") return null
 
   function searchHandler(e: React.SubmitEvent) {
     e.preventDefault()
@@ -38,6 +42,6 @@ export default function Navbar() {
           </form>
         </div>
       </div>
-    </nav>  
+    </nav>
   )
 }

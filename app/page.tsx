@@ -1,38 +1,35 @@
-// https://nextjs.org/docs/app/api-reference/functions/use-search-params
-// https://nextjs.org/docs/app/api-reference/functions/use-router
 "use client"
 
-import { useState, useEffect } from "react"
-import { MappedCard } from "@/lib/mapCard"
-import CardGrid from "./components/CardGrid"
-import { useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+
 
 export default function Home() {
-  const [cards, setCards] = useState<MappedCard[]>([])
-  /*
-   * useSearchParams reads the query from the URL set by Navbar's SearchBar
-   * Navbar lives in layout.tsx and cannot pass state directly to this page
-   */
-  const searchParams = useSearchParams()
-  const query = searchParams.get('q') ?? ""     // null coalesce query for encodeURIComponent
-  
-  useEffect(() => {
-    if (!query) {
-      setCards([])    // clear cards when query is empty
-      return
-    }
-    
-    async function fetchCards() {
-      const res = await fetch(`/api/cards/search?q=${encodeURIComponent(query)}`)
-      const data = await res.json()
-      setCards(data)
-    }
-    fetchCards()
-  }, [query])
+  const [query, setQuery] = useState("")
+  const router = useRouter()
+
+  function searchHandler(e: React.SubmitEvent) {
+    e.preventDefault()
+    if(!query) return
+    router.push(`/search?q=${encodeURIComponent(query)}`)
+  }
+
 
   return (
-    <main>
-      <CardGrid cards={cards} />
+    <main className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-4xl font-bold text-white mb-8">MTG-Collector</h1>
+      <form onSubmit={searchHandler} className="relative">
+        <input
+          type="text"
+          value={query}
+          placeholder="Search for a card..."
+          onChange={(e) => setQuery(e.target.value)}
+          className="px-4 py-2 rounded text-white bg-[#3B3550] outline-none w-80"
+        />
+        <button type="submit" className="px-4 py-2 bg-gray-500 text-white rounded">
+          Search
+        </button>
+      </form>
     </main>
   )   
 }
