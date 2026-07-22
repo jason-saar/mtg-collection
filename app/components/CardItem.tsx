@@ -6,13 +6,13 @@ interface CardItemProps {
 }
 
 export default function CardItem({ card }: CardItemProps){
-    
+    const imageUri = card.image_uris?.normal ?? card.card_faces?.[0]?.image_uris?.normal
     
     return (
         <Link href={`/cards/${card.id}`}>
-            {card.image_uris?.normal && (
+            {imageUri && (
                 <img 
-                    src={card.image_uris.normal}
+                    src={imageUri}
                     alt={card.name}
                     style={{ borderRadius: "4.75% / 3.5%" }}
                     className="transition-transform duration-150 hover:scale-105 hover:shadow-lg cursor-pointer"

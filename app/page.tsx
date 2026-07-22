@@ -30,6 +30,12 @@ export default function Home() {
           Search
         </button>
       </form>
+      <p className="mt-2 text-xs text-gray-500">
+        Advanced syntax (e.g. type:dragon, oracle:flying) requires learning{" "}
+        <a href="https://scryfall.com/docs/syntax" target="_blank" className="underline decoration-solid hover:text-blue-300">
+          Scryfall query language
+        </a>
+      </p>
     </main>
   )   
 }
