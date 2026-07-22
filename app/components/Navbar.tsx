@@ -1,14 +1,21 @@
 // Navbar layout sourced from Flowbite: https://flowbite.com/docs/components/navbar/
  "use client"
 
- import { useState } from "react"
- import { usePathname, useRouter } from "next/navigation"
+ import { useState, useEffect } from "react"
+ import { usePathname, useRouter, useSearchParams } from "next/navigation"
  import Link from "next/link"
 
 export default function Navbar() {
-  const [query, setQuery] = useState("")
+  const searchParams = useSearchParams()
+  const [query, setQuery] = useState(searchParams.get('q') ?? "")
   const router = useRouter()
   const pathname = usePathname()
+
+  // Keep navbar in-sync with searchParams, fixes out-of-sync searches from homepage
+  useEffect(() => {
+    const q = searchParams.get('q') ?? ""
+    setQuery(q)
+  }, [searchParams])
 
   // Skip rendering on homepage
   if (pathname === "/") return null
